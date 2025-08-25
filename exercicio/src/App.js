@@ -1,37 +1,32 @@
-import React, { useState }  from 'react';
+// projeto\src\App.js
+
+import React, { useState } from 'react';
 import './App.css';
+import logo from '../src/assets/images/nigga_bob-removebg-preview.png';
+import AdicionarProduto from './components/adicionar';
+import ListaDeProdutos from './components/ListaDeProdutos';
 
 function App() {
-  const [usuario, setUsuario] = useState('');
-  const [usuarios, setUsuarios] = useState(['Feijão', 'Arroz', 'Farinha']);
+  const [produtos, setProdutos] = useState(['Mouse', 'Teclado', 'Monitor']);
 
-  const adicionarUsuario = () => {
-    if (usuarios.includes(usuario)) {
-      alert('Item já existe!');
+  const adicionarUsuario = (nome) => {
+    const produto = nome.trim();
+
+    if (produtos.includes(produto)) {
+      alert('O produto já existe!');
       return;
-    }
-
-    setUsuarios([...usuarios, usuario]);
-    setUsuario('');
+    }  
+    setProdutos([...produtos, produto]);
   };
+
   return (
     <div className="App">
-      <h1>Lista de compras</h1>
-      <input
-        type="text"
-        value={usuario}
-        onChange={(e) => setUsuario(e.target.value)}
-        placeholder="Digite o nome das compras"
-      />
-      <button onClick={adicionarUsuario}>Adicionar compras</button>
-
+      <img src={logo} className="logo" alt="Logo" />
+      <h1>Produtos</h1>
+      <AdicionarProduto onAdd={adicionarUsuario} />
       <hr />
-      <h2>Lista de compras</h2>
-      <ul>
-        {usuarios.map((user, index) => (
-          <li key={index}>{user}</li>
-        ))}
-      </ul>
+      <h2>Lista de produtos</h2>
+      <ListaDeProdutos itens={produtos} />
     </div>
   );
 }
